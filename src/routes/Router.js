@@ -6,8 +6,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import SplashScreen from "react-native-splash-screen";
 
 import Login from '../screens/login/Login';
-// import Dashboard from "../screens/Dashboard";
-// import CompanySelectionScreen from '../screens/login/CompanySelectionScreen';
+import Dashboard from "../screens/Dashboard";
+import CompanySelectionScreen from '../screens/login/CompanySelectionScreen';
 
 import theme from "../styles/theme.styles";
 
@@ -135,11 +135,12 @@ export default function App({ navigation }) {
                     state.userToken == null ? 
                     <>
                     <Stack.Screen name='Login' component={Login} options={{orientation: 'portrait',}}/>
-                    {/* <Stack.Screen name='CompanySelectionScreen' component={CompanySelectionScreen} options={{orientation: 'portrait',}}/> */}
+                    <Stack.Screen name='CompanySelectionScreen' component={CompanySelectionScreen} options={{orientation: 'portrait',}}/>
                     </>
                      : 
-                    // <Stack.Screen name='Dashboard' component={Dashboard}  options={{orientation: 'portrait',}}/>
-                    <></>
+                    <Stack.Screen name='Dashboard' component={Dashboard}  options={{orientation: 'portrait',}}/>
+                  
+
                     }
                 </Stack.Navigator>
             </NavigationContainer>
