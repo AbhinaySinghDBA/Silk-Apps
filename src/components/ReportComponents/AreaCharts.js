@@ -6,6 +6,7 @@ import {
   View,
   processColor,
   LayoutAnimation,
+  ScrollView,
 } from 'react-native';
 
 import {LineChart} from 'react-native-charts-wrapper';
@@ -14,7 +15,7 @@ import {AreaChart} from 'react-native-svg-charts';
 const AreaCharts = ({data}) => {
   const legend = {
     enabled: true,
-    textSize: 14,
+    textSize: 12,
     form: 'SQUARE',
     formSize: 14,
     xEntrySpace: 10,
@@ -23,6 +24,7 @@ const AreaCharts = ({data}) => {
   };
 
   return (
+    <ScrollView>
     <View style={{flex: 1}}>
       <View style={styles.container}>
         <LineChart
@@ -40,6 +42,7 @@ const AreaCharts = ({data}) => {
             },
             right: {
               enabled: true,
+              height:150
             },
           }}
           autoScaleMinMaxEnabled={true}
@@ -55,7 +58,7 @@ const AreaCharts = ({data}) => {
           scaleEnabled={true}
           scaleXEnabled={true}
           scaleYEnabled={false}
-          pinchZoom={false}
+          pinchZoom={true}
           doubleTapToZoomEnabled={false}
           dragDecelerationEnabled={true}
           dragDecelerationFrictionCoef={0.99}
@@ -63,6 +66,7 @@ const AreaCharts = ({data}) => {
         />
       </View>
     </View>
+    </ScrollView>
   );
 };
 
@@ -71,10 +75,10 @@ export default AreaCharts;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#FFFFFF',
     paddingBottom: 1,
   },
   chart: {
-    height: 570,
+    height: 300,
   },
 });

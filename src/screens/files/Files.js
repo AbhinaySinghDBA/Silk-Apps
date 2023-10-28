@@ -1,17 +1,20 @@
 import React, { useState, useEffect, useLayoutEffect, useContext} from 'react';
 import {View,LogBox, ActivityIndicator,FlatList,TouchableOpacity,StatusBar,Image} from 'react-native';
-import { userDataContext } from '../Dashboard';
 import {useIsFocused } from '@react-navigation/native';
-import themeStyles from '../../styles/theme.styles';
 import axios from 'axios';
-import constants from '../../styles/constants';
-import styles from '../../styles/FilesStyles';
+
 import FileCard from '../../components/FIleComponents/FileCard';
 import SearchEmptyResult from '../../components/SearchComponents/SearchEmptyResult';
 import FileSearch from '../../components/SearchComponents/FileSearch';
 import RenderEmptyData from '../../components/RenderEmptyData';
-
 import { Logout } from '../../components/Logout';
+
+import { userDataContext } from '../Dashboard';
+
+import constants from '../../styles/constants';
+import styles from '../../styles/FilesStyles';
+import themeStyles from '../../styles/theme.styles';
+
 const Files = ({ route,navigation }) => {
     const [isLoading, setIsLoading] = useState(false);
     const {userData} = useContext(userDataContext);
@@ -56,8 +59,6 @@ const Files = ({ route,navigation }) => {
         });
     }
     useEffect(() => {
-      // Use `setOptions` to update the button that we previously specified
-      // Now the button includes an `onPress` handler to update the count
       navigation.setOptions({
         headerRight: () => (
           <>

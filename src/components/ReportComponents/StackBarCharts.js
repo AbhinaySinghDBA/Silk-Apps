@@ -27,10 +27,10 @@ const StackBarCharts = ({ data }) => {
                 label: '',
                 config: {
                     colors: [
-                        processColor('#C0FF8C'), processColor('#FFF78C'), processColor('#FFD08C'),
-                        processColor('#C0FF8C'), processColor('#FFF78C'), processColor('#FFD08C'),
-                        processColor('#C0FF8C'), processColor('#FFF78C'), processColor('#FFD08C'),
-                        processColor('#C0FF8C'), processColor('#FFF78C'), processColor('#FFD08C'),
+                        processColor('#233D4D'), processColor('#457B9D'), processColor('#3DA5D9'),
+                        processColor('#06D6A0'), processColor('#OEAD69'), processColor('#EF233C'),
+                        processColor('#FF5400'), processColor('#FCA311'), processColor('#FCCA46'),
+                        processColor('#FIFAEE')
                     ],
                     stackLabels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
                 }
@@ -49,7 +49,7 @@ const StackBarCharts = ({ data }) => {
 
 
     return (
-        <View style={{ flex: 1 }}>
+        <View style={{ flex: 1}}>
             <View style={styles.container}>
                 <BarChart
                     style={styles.chart}
@@ -59,6 +59,7 @@ const StackBarCharts = ({ data }) => {
                     drawValueAboveBar={false}
                     highlights={state.highlights}
                     chartDescription={{ text: "" }}
+                    
 
                 />
             </View>
@@ -69,7 +70,7 @@ const StackBarCharts = ({ data }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#F5FCFF',
+        backgroundColor: '#FFFFFF',
         height: 500,
         paddingVertical: 16,
     },

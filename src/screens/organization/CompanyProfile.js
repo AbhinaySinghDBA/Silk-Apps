@@ -1,18 +1,18 @@
 import React, { useState, useEffect, useLayoutEffect, useContext,createContext} from 'react';
-import {View, Text, ScrollView, LogBox, ActivityIndicator,Image,useWindowDimensions} from 'react-native';
-
-import { useNavigation } from '@react-navigation/native';
-import themeStyles from '../../styles/theme.styles';
-import constants from '../../styles/constants';
-import styles from '../../styles/OrganizationStyles';
-import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
-import VitalStatsCards from '../../components/OrganizationComponents/VitalStatsCards';
-
+import {View, Text, LogBox, ActivityIndicator,Image} from 'react-native';
 import axios from 'axios';
+import { useNavigation } from '@react-navigation/native';
+import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
+
+import VitalStatsCards from '../../components/OrganizationComponents/VitalStatsCards';
 import { Logout } from '../../components/Logout';
-const DataContext = createContext();
 import { userDataContext } from '../Dashboard';
-  
+
+import themeStyles from '../../styles/theme.styles';
+import styles from '../../styles/OrganizationStyles';
+import constants from '../../styles/constants';
+
+const DataContext = createContext();
   const VitalStatsTab = () => {
     const companyProfileData = useContext(DataContext);
     return <VitalStatsCards companyProfileData = {companyProfileData}/>

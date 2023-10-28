@@ -1,17 +1,19 @@
 import React, { useState, useEffect, useLayoutEffect, useContext} from 'react';
 import {View, LogBox, FlatList,StatusBar} from 'react-native';
-
+import axios from 'axios';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
+import LottieView from 'lottie-react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import themeStyles from '../../styles/theme.styles';
 
 import RenderFeedUpdateCard from '../../components/FeedComponents/RenderFeedUpdateCard';
-import constants from '../../styles/constants';
-import axios from 'axios';
-import { AuthContext } from '../../routes/Router';
 import RenderEmptyData from '../../components/RenderEmptyData';
-import LottieView from 'lottie-react-native';
+
+import { AuthContext } from '../../routes/Router';
+
+import constants from '../../styles/constants';
 import styles from '../../styles/FeedStyles';
+import themeStyles from '../../styles/theme.styles';
+
 const Feed = ({ route }) => {
     const [isLoading, setIsLoading] = useState(false);
     // const {userData} = useContext(userDataContext);

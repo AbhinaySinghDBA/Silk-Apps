@@ -1,23 +1,23 @@
 import React, { useState, useEffect, useLayoutEffect, useContext, useRef } from 'react';
 import { View, Text, FlatList, ScrollView, LogBox, ActivityIndicator, TouchableOpacity, Image, TextInput, Platform, processColor, KeyboardAvoidingView, TouchableHighlight, TouchableWithoutFeedback, Keyboard } from 'react-native';
-
-import { useIsFocused, useNavigation } from '@react-navigation/native';
-import themeStyles from '../../styles/theme.styles';
-import styles from '../../styles/ReportDetailStyles';
-import { userDataContext } from '../Dashboard';
-import constants from '../../styles/constants';
 import axios from 'axios';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
+
+import { userDataContext } from '../Dashboard';
 import { Grid1, StatusUp, Send, ArrowCircleLeft, ArrowCircleRight } from 'iconsax-react-native';
 import ReportDetailListViewCard from '../../components/ReportComponents/ReportDetailListViewCard';
 import RenderMetricsCard from '../../components/ReportComponents/ReportMetricsCard';
 import BottomModal from '../../components/BottomModal';
-
 import CombinedCharts from '../../components/ReportComponents/CombinedCharts';
-
 import GraphTypeSelectionCard from '../../components/ReportComponents/GraphTypeSelectionCard';
 import Swipeable from '../../components/ReportComponents/Swipeable';
-
 import { Logout } from '../../components/Logout';
+
+
+
+import themeStyles from '../../styles/theme.styles';
+import styles from '../../styles/ReportDetailStyles';
+import constants from '../../styles/constants';
 
 
 const ReportDetails = ({ navigation, route }) => {
@@ -50,14 +50,12 @@ const ReportDetails = ({ navigation, route }) => {
   // Chart Variables
   const [labelArray, setLabelArray] = useState([]);
   const [labelArrayLandscape, setLabelArrayLandscape] = useState([]);
-  const [markerArray, setMarkerArray] = useState([]);
   const [metricDetailArray, setMetricDetailArray] = useState([]);
   const [firstDataSet, setFirstDataSet] = useState([]);
   const [secondDataSet, setSecondDataSet] = useState([]);
   const [axisLength, setAxisLength] = useState(12);
 
   const [chartType, setChartType] = useState(1);
-
   const [colorArray, setColorArray] = useState([]);
   const [colorArray2, setColorArray2] = useState([]);
   const [lineCircleColor, setLineCircleColor] = useState([]);
@@ -80,13 +78,13 @@ const ReportDetails = ({ navigation, route }) => {
       setReportData([]); setReportListData([]);
     };
   }, [isFocused])
-  // const diffPercent = (a, b) => { return  ( a<b ? "-" + ((b - a) * 100) / a : ((a - b) * 100) / b ) + "%"; }
+
   const setReportsData = async (y) => {
     const headers = { 'Authorization': `Token ${userData.access_token}` };
     axios.get(`${constants.APIDatas.getMetricsDetailUrl}/mobile?company_id=${company_id}&company_metric_ids=${type_id}&year=${!!y ? y : current_year}`, { headers })
       .then(function (response) {
         !!response.data.data.item && SetFirstDataYear(response.data.data.item.data_available_from || 2005);
-        // console.log(`${constants.APIDatas.getMetricsDetailUrl}/mobile?company_id=${company_id}&company_metric_ids=${type_id} data`,response.data,headers);
+        
         if (!!response.data.data.items) {
           setReportData(response.data.data.items.report);
           setReportListData(response.data.data.items);
@@ -193,25 +191,23 @@ const ReportDetails = ({ navigation, route }) => {
               _colorArray1.push(item.is_comment ? processColor(themeStyles.CHART_YELLOW) : processColor(themeStyles.CHART_YELLOW_50));
               _colorArray2.push(item.is_comment2 ? processColor(themeStyles.CHART_BLUE) : processColor(themeStyles.CHART_BLUE_50));
               _lineCircleColorArray.push(item.is_comment2 ? processColor("red") : processColor(themeStyles.CHART_BLUE_50));
-              // _metricDetailArray.push([item.metric_detail_id,item.metric_detail_id2]);
-              // _dataArray2.push(null)
+            
               let _mData = {
                 "amount": item.amount,
                 "amount2": item.amount2,
                 "mid": item.metric_detail_id,
                 "mid2": item.metric_detail_id2
               }
-              // console.log('_mData',_mData);
+              
               _metricDetailArray.push(_mData);
             }),
-              // console.log(_colorArray1,_colorArray2,_metricDetailArray)
+            
               setFirstDataSet(_dataArray), setSecondDataSet(_dataArray2), setLabelArray(_labelArray), setLabelArrayLandscape(_labelArrayLandscape), setColorArray(_colorArray1), setColorArray2(_colorArray2), setLineCircleColor(_lineCircleColorArray), setMetricDetailArray(_metricDetailArray);
           }
 
           setCompareReportsData()
           setCompareWith(selectedType);
           setTimeout(() => { setIsLoading(true); }, 300);
-          // Hide Modal and show graph selectin modal incase of chart view
           viewType == 'Chart' ? setShowGraphSelectionModal(true) : setShowMetrixModal(false);
         })
         .catch(function (error) {
@@ -280,8 +276,7 @@ const ReportDetails = ({ navigation, route }) => {
               _colorArray1.push(item.is_comment ? processColor(themeStyles.CHART_YELLOW) : processColor(themeStyles.CHART_YELLOW_50));
               _colorArray2.push(processColor(themeStyles.CHART_BLUE_50));
               _lineCircleColorArray.push(processColor(themeStyles.CHART_BLUE_50));
-              // _metricDetailArray.push([item.metric_detail_id,item.metric_detail_id2]);
-              // _dataArray2.push(null)
+            
               let _mData = {
                 "amount": item.current_value,
                 "amount2": item.budget_value,
@@ -290,7 +285,6 @@ const ReportDetails = ({ navigation, route }) => {
               }
               _metricDetailArray.push(_mData);
             }),
-              // console.log(_colorArray1,_colorArray2,_metricDetailArray)
               setFirstDataSet(_dataArray), setSecondDataSet(_dataArray2), setLabelArray(_labelArray), setLabelArrayLandscape(_labelArrayLandscape), setColorArray(_colorArray1), setColorArray2(_colorArray2), setLineCircleColor(_lineCircleColorArray), setMetricDetailArray(_metricDetailArray);
           }
 
@@ -298,7 +292,6 @@ const ReportDetails = ({ navigation, route }) => {
           setSelectedType("Budget Value");
           setCompareWith("Budget Value");
           setTimeout(() => { setIsLoading(true); }, 300);
-          // Hide Modal and show graph selectin modal incase of chart view
           viewType == 'Chart' ? setShowGraphSelectionModal(true) : setShowMetrixModal(false);
 
         }
@@ -317,7 +310,6 @@ const ReportDetails = ({ navigation, route }) => {
     let filteredYearValue = e == 'left' ? yearValue - 1 : yearValue + 1;
     setYearValue(filteredYearValue);
     compareWith == "" ? setReportsData(filteredYearValue) : compareWith != "Budget Value" ? compareMetricsListView(filteredYearValue) : AddBudgetToCompare(filteredYearValue);
-    // selectedTypeId == 0 ? setReportsData(filteredYearValue): compareMetricsListView(filteredYearValue);
   }
 
   useEffect(() => {
@@ -332,7 +324,6 @@ const ReportDetails = ({ navigation, route }) => {
     let id = metricDetailId == 0 ? chatMetricId : metricDetailId;
     axios.get(`${constants.APIDatas.CommentsInfoUrl}?metric_detail_id=${id}`, { headers })
       .then(function (response) {
-        // console.log('res', JSON.stringify(response.data))
         setChatInfo(response.data.data);
         setShowChatModal(true);
       })
@@ -383,7 +374,7 @@ const ReportDetails = ({ navigation, route }) => {
   }
   useEffect(() => {
     !showChatModal && isCommented &&
-      // ((selectedTypeId == 0 ? setReportsData(yearValue): compareMetricsListView(yearValue)),setIsCommented(false) );
+      
       ((compareWith == "" ? setReportsData(yearValue) : compareWith == "Budget Value" ? compareMetricsListView(yearValue) : AddBudgetToCompare(yearValue)), setIsCommented(false));
   }, [isCommented, showChatModal])
   //
@@ -403,7 +394,6 @@ const ReportDetails = ({ navigation, route }) => {
   useEffect(() => {
     metricDetailId != 0 && (
       setChatMetricId(metricDetailId),
-      // setChatMetric(1),
       ShowChatInfoModal(),
       setMetricDetailId(0)
     )
@@ -509,10 +499,8 @@ const ReportDetails = ({ navigation, route }) => {
                 <Swipeable setSwipeDirection={setSwipeDirection} style={{ zIndex: 4, paddingTop: 0, }}>
                   <TouchableOpacity activeOpacity={1} style={[styles.addMetricsToCompareButton, { backgroundColor: themeStyles.CHART_YELLOW, marginLeft: 10 }]}
                     onPress={() => AddBudgetToCompare()}
-                  // disabled={(compareWith == '' || selectedType != "Budget Value") && viewType == 'List' }
                   >
                     <Text style={[styles.addMetricsToCompareText]}>+ Budget</Text>
-                    {/* <Text style={[styles.addMetricsToCompareText]}>+ Budget to Compare</Text> */}
                   </TouchableOpacity>
                 </Swipeable>
               }
@@ -543,19 +531,7 @@ const ReportDetails = ({ navigation, route }) => {
                   </TouchableWithoutFeedback>
                 </TouchableHighlight>
               </ScrollView>
-              {/* <ScrollView>
-          <FlatList
-          keyboardShouldPersistTaps='always'
-          style={[styles.metricsListConatiner,{flexGrow:1}]}
-          contentContainerStyle={{ flexGrow: 1 }}
-          data={metricsData}
-          extraData={metricsData}
-          renderItem={(item, index) =>  renderFlatListCard(item, index)}
-          keyExtractor={(item, index) => ("metrics-"+item.id + index)}
-          showsVerticalScrollIndicator={false}
-        />
-        </ScrollView>
-        */}
+             
               <TouchableOpacity activeOpacity={1} style={styles.comparisionSubmitModalButton} onPress={() => compareMetricsListView(yearValue)} >
                 <Text style={styles.comparisionSubmitButtonText}>{viewType == 'List' ? "Submit" : "Next"}</Text>
               </TouchableOpacity>
@@ -578,7 +554,6 @@ const ReportDetails = ({ navigation, route }) => {
         <BottomModal showModal={showChatModal} setShowModal={setShowChatModal} animationInType={'slideInUp'} animationOutType={'slideOutDown'} animationTiming={500} modalHeight={0.9} bgColor={themeStyles.WHITE_COLOR} screen={'chat'}>
           <KeyboardAvoidingView
             behavior={Platform.OS === 'ios' ? 'height' : 'null'}
-            // behavior={Platform.OS === "ios" ? "position" : null}
             keyboardVerticalOffset={Platform.OS === "ios" ? 64 : 0}
             style={{ flex: 1 }}>
             <>

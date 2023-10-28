@@ -1,11 +1,13 @@
 import React,{useState} from 'react';
 import {View, Text, TouchableOpacity,Image,Linking} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import themeStyles from '../../styles/theme.styles';
-import constants from '../../styles/constants';
 import {Link21} from 'iconsax-react-native';
-import Share from 'react-native-share'; 
+import Share from 'react-native-share';
+
 import styles from "../../styles/FeedStyles";
+import constants from '../../styles/constants';
+import themeStyles from '../../styles/theme.styles';
+
 const RenderFeedUpdateCard = (props) => {
     const navigation = useNavigation();
     const {item, index ,user_id,user_name} = props;

@@ -19,6 +19,7 @@ const LineCharts = ({ data }) => {
         wordWrapEnabled: true
     }
 
+
     return (
         <View style={{ flex: 1 }}>
             <View style={styles.container}>
@@ -43,12 +44,13 @@ const LineCharts = ({ data }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#F5FCFF',
+        backgroundColor: '#FFFFFF',
         paddingVertical: 16,
     },
     chart: {
         flex: 1
     }
+    
 });
 
 

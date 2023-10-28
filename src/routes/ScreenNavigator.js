@@ -16,13 +16,14 @@ import Files from '../screens/files/Files';
 
 import ReportList from '../screens/reports/ReportList';
 import ReportDetails from '../screens/reports/ReportDetails';
+
 import CompanyProfile from '../screens/organization/CompanyProfile';
 import CustomReportsList from '../screens/customReports/CustomReportsList';
-import CustomReportDetails from '../screens/customReports/CustomReportDetails';
 
 import ViewPdf from '../components/FIleComponents/ViewPdf';
 import theme from '../styles/theme.styles';
 import themeStyles from '../styles/theme.styles';
+import CustomReportDetails from '../screens/customReports/CustomReportDetails';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -48,6 +49,9 @@ const HomeTabs = () => {
           borderBottomWidth: 1,
           // marginTop:-60
           ...Platform.select({
+            ios: {
+              height: 62,
+            },
             android: {
               height: 62,
             },
@@ -71,7 +75,9 @@ const HomeTabs = () => {
           // marginBottom:11
           ...Platform.select({
             ios: {
-              marginVertical: 10,
+              minHeight: 60,
+              height: 60,
+              //marginVertical: 10,
               // backgroundColor: 'red',
             },
             android: {
@@ -85,7 +91,10 @@ const HomeTabs = () => {
           ...Platform.select({
             ios: {
               // backgroundColor: 'red',
-              marginBottom: 5
+              // marginBottom: 5
+              marginTop: 5,
+              marginBottom: 5,
+              lineHeight: 12
             },
             android: {
               marginTop: 5,
@@ -108,9 +117,11 @@ const HomeTabs = () => {
           }),
 
         },
-        
+        // tabBarButton: [
+        //   "Notification",
+        // ].includes(route.name) ? () => { return null; } : undefined,
       })}
-    
+    // tabBar={props => <BottomTabBar {...props} state={{ ...props.state, routes: props.state.routes.slice(0, 4) }}></BottomTabBar>}
     >
       <Tab.Screen
         name="Feed"
@@ -164,7 +175,7 @@ const HomeTabs = () => {
           ),
           headerRight: ({ color, size }) => (
             <View style={{ flex: 1, flexDirection: "row" }}>
-              
+              {/* <SearchNormal1 color={themeStyles.PRIMARY_COLOR} variant="Outline" size={24} style={{alignSelf:'center',marginRight:20}}/> */}
               <Image source={require('../assets/Img/Search_active.png')} style={{ width: 24, height: 24, resizeMode: 'contain', alignSelf: 'center', marginRight: 20 }} />
             </View>
           ),
@@ -233,7 +244,7 @@ const HomeTabs = () => {
     </Tab.Navigator>
   );
 };
-
+// console.ignoredYellowBox = ['Warning: Each', 'Warning: Failed'];
 export default ScreenNavigator;
 
 
@@ -283,7 +294,7 @@ function ScreenNavigator() {
           title: route.params.name + ' Data',
           headerLeft: () => Platform.OS == 'ios' &&
             <TouchableOpacity onPress={() => navigation.goBack(null)} style={{}}>
-              <ArrowLeft color={'#000'} variant="Outline" size={22} style={{ marginRight: 10, marginTop: 2 }} />
+              <Image source={require('../assets/Img/arrow-left.png')} color={'#000'} variant="Outline" size={22} style={{ marginRight: 10, marginTop: 2 }} />
             </TouchableOpacity>,
           // headerRight: () => <View/>,
           headerTitle: props => (
@@ -300,7 +311,7 @@ function ScreenNavigator() {
           title: route.params.name + ' Data',
           headerLeft: () => Platform.OS == 'ios' &&
             <TouchableOpacity onPress={() => navigation.goBack(null)} style={{}}>
-              <ArrowLeft color={'#000'} variant="Outline" size={22} style={{ marginRight: 10, marginTop: 2 }} />
+              <Image source={require('../assets/Img/arrow-left.png')} color={'#000'} variant="Outline" size={22} style={{ marginRight: 10, marginTop: 2 }} />
             </TouchableOpacity>,
           // headerRight: () => <View/>,
           headerTitle: props => (
@@ -318,9 +329,9 @@ function ScreenNavigator() {
           title: 'View Profile',
           headerLeft: () => Platform.OS == 'ios' &&
             <TouchableOpacity onPress={() => navigation.goBack(null)} style={{}}>
-              <ArrowLeft color={'#000'} variant="Outline" size={22} style={{ marginRight: 10, marginTop: 2 }} />
+              <Image source={require('../assets/Img/arrow-left.png')} color={'#000'} variant="Outline" size={22} style={{ marginRight: 10, marginTop: 2 }} />
             </TouchableOpacity>,
-          
+          // headerRight: () => <View/>,
           headerTitle: props => (
             <View style={{ flex: 1, flexDirection: "row" }}>
               <Text style={{ fontSize: 20, fontWeight: "600", color: theme.PRIMARY_TEXT_COLOR, maxWidth: '75%' }} numberOfLines={1} ellipsizeMode='tail'>
@@ -335,7 +346,7 @@ function ScreenNavigator() {
           title: 'View Files',
           headerLeft: () => Platform.OS == 'ios' &&
             <TouchableOpacity onPress={() => navigation.goBack(null)} style={{}}>
-              <ArrowLeft color={'#000'} variant="Outline" size={22} style={{ marginRight: 10, marginTop: 2 }} />
+              <Image source={require('../assets/Img/arrow-left.png')} color={'#000'} variant="Outline" size={22} style={{ marginRight: 10, marginTop: 2 }} />
             </TouchableOpacity>,
           // headerRight: () => <View/>,
           headerTitle: props => (

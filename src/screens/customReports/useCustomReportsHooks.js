@@ -12,6 +12,7 @@ const LabelHelper = (matrix) => {
             return `${matrix.name} `;
         default:
             return `${matrix.name}`;
+            
     }
 };
 
@@ -55,62 +56,30 @@ const UseCustomReportsHooks = () => {
 
     const barColorFn = (view, i) => {
         const barColor = [
-            '#1D5B79',
-            '#468B97',
-            '#EF6262',
-            '#F3AA60',
-            '#A1CCD1',
-            '#E9B384',
-            '#F4F2DE',
-            '#7C9D96',
-            '#FF8080',
-            '#FFCF96',
-            '#F6FDC3',
-            '#CDFAD5',
-            '#D2E0FB',
-            '#D7E5CA',
-            '#D7E5CA',
-            '#D7E5CA',
-            '#D7E5CA',
-            '#D7E5CA',
-            '#D7E5CA',
-            '#D7E5CA',
-            '#D7E5CA',
-            '#D7E5CA',
-            '#D7E5CA',
-            '#D7E5CA',
-            '#D7E5CA',
-            '#D7E5CA',
+            '#233D4D',
+            '#457B9D',
+            '#3DA5D9',
+            '#06D6A0',
+            '#OEAD69',
+            '#EF233C',
+            '#FF5400',
+            '#FCA311',
+            '#FCCA46',
+            '#FIFAEE',
 
 
         ];
         const lightBarColor = [
-            '#1d5b7933',
-            '#468b978a',
-            '#ef62628a',
-            '#f3aa6078',
-            '#a1ccd154',
-            '#e9b38469',
-            '#f4f2de80',
-            '#f4f2de80',
-            '#FF8080',
-            '#FFCF96',
-            '#F6FDC3',
-            '#CDFAD5',
-            '#D2E0FB',
-            '#D7E5CA',
-            '#D7E5CA',
-            '#D7E5CA',
-            '#D7E5CA',
-            '#D7E5CA',
-            '#D7E5CA',
-            '#D7E5CA',
-            '#D7E5CA',
-            '#D7E5CA',
-            '#D7E5CA',
-            '#D7E5CA',
-            '#D7E5CA',
-            '#D7E5CA',
+            '#233D4D',
+            '#457B9D',
+            '#3DA5D9',
+            '#06D6A0',
+            '#OEAD69',
+            '#EF233C',
+            '#FF5400',
+            '#FCA311',
+            '#FCCA46',
+            '#FIFAEE',
         ];
 
         switch (view) {

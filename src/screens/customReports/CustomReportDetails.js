@@ -5,7 +5,6 @@ import {
   ScrollView,
   TouchableHighlight,
   Modal,
-  Button,
   processColor,
 } from 'react-native';
 import UseCustomReportsHooks from './useCustomReportsHooks';
@@ -17,9 +16,7 @@ import {
   getCurrentMonthAndYear,
   getCurrentQuarterAndYear,
 } from '../../utils/helper';
-import LineChartView from '../../components/view/LineChartView';
 import {TouchableOpacity} from 'react-native';
-import BarChartView from '../../components/view/BarChartView';
 import StackBarCharts from '../../components/ReportComponents/StackBarCharts';
 import LineCharts from '../../components/ReportComponents/LineCharts';
 import AreaCharts from '../../components/ReportComponents/AreaCharts';
@@ -47,7 +44,7 @@ const QUATER = [
   {label: 'Dec', value: 4},
 ];
 
-function isValidTableView(startDate, endDate) {
+function isValidTableView(startDate, endDate, maxRangeMonth) {
   const s_parts = startDate.split('-');
   const s_month = s_parts[0];
   const s_year = s_parts[1];
@@ -56,7 +53,7 @@ function isValidTableView(startDate, endDate) {
   const e_month = e_parts[0];
   const e_year = e_parts[1];
 
-  const maxRangeMonths = 12;
+  const maxRangeMonths =   maxRangeMonth;  
 
   const startDateObj = new Date(s_year, s_month, '01');
   const endDateObj = new Date(e_year, e_month, '01');
@@ -120,7 +117,15 @@ const CustomReportDetails = ({route}) => {
   };
 
   const submitHandler = () => {
-    let error = isValidTableView(range.from, range.to);
+    let months;
+
+    if (matrixData.meta.view === 'TABLE') {
+      months = 12;
+    } else {
+      months = 24; 
+    }
+
+    let error = isValidTableView(range.from, range.to,months); 
 
     switch (error) {
       case 'SELECTION_FAILED':
@@ -129,7 +134,7 @@ const CustomReportDetails = ({route}) => {
       case 'RANGE_FAILED':
         setErrorObj({
           error: true,
-          msg: 'Invalid Range, range should be within 12 month.',
+          msg: 'Invalid Range, range should be within '+months+' month.',
         });
         return;
       default:
@@ -164,7 +169,6 @@ const CustomReportDetails = ({route}) => {
     let to = report.periodicity == 1 ? result.to : qtr.to;
     setRange({from, to});
     fetchMatrixData(report, from, to, report.periodicity);
-
     if (report.periodicity == 2) {
       setQuaterOrMonth(QUATER);
     }
@@ -196,13 +200,12 @@ const CustomReportDetails = ({route}) => {
   };
 
   const BarDataHandler = matrixData => {
+    // const maxRangeMonths = 24;
     const {labels, datasets} = matrixData;
-
     const matricNames = [];
     const dataArray = [];
     const colorsArray = [];
     const dataArrayTemp = [];
-
     for (const data of datasets) {
       matricNames.push(data.label);
       dataArrayTemp.push(data.data);
@@ -211,13 +214,11 @@ const CustomReportDetails = ({route}) => {
 
     const numRows = dataArrayTemp[0]?.length;
     const resultData = Array.from({length: numRows}, () => []);
-
     for (let i = 0; i < numRows; i++) {
       for (let j = 0; j < dataArrayTemp.length; j++) {
         resultData[i].push(dataArrayTemp[j][i]);
       }
     }
-
     for (const r of resultData) {
       dataArray.push({y: r});
     }
@@ -338,20 +339,22 @@ const CustomReportDetails = ({route}) => {
                             onPress={() => {
                               setRange({
                                 from: `${m.value}-${yr}`,
+
                                 to: range.to,
                               });
-                              setSelectedMonth(m.value);
                             }}
                             style={[
                               stylesSheet.monthButton,
-                              selectedMonth === m.value &&
-                                stylesSheet.selectedMonth,
+                              range.from == `${m.value}-${yr}`
+                                ? stylesSheet.selectedMonth
+                                : null,
                             ]}>
                             <Text
                               style={[
                                 stylesSheet.monthButtonText,
-                                selectedMonth === m.value &&
-                                  stylesSheet.selectedMonthText,
+                                range.from == `${m.value}-${yr}`
+                                  ? stylesSheet.selectedMonth
+                                  : null,
                               ]}>
                               {m.label}
                             </Text>
@@ -388,8 +391,19 @@ const CustomReportDetails = ({route}) => {
                                 to: `${m.value}-${yr}`,
                               });
                             }}
-                            style={stylesSheet.monthButton}>
-                            <Text style={stylesSheet.monthButtonText}>
+                            style={[
+                              stylesSheet.monthButton1,
+                              range.to == `${m.value}-${yr}`
+                                ? stylesSheet.selectedMonth1
+                                : null,
+                            ]}>
+                            <Text
+                              style={[
+                                stylesSheet.monthButtonText1,
+                                range.to == `${m.value}-${yr}`
+                                  ? stylesSheet.selectedMonth1
+                                  : null,
+                              ]}>
                               {m.label}
                             </Text>
                           </TouchableOpacity>
@@ -407,7 +421,6 @@ const CustomReportDetails = ({route}) => {
           ) : (
             <></>
           )}
-
           <View style={stylesSheet.btnGroup}>
             <TouchableOpacity
               onPress={submitHandler}
@@ -419,20 +432,27 @@ const CustomReportDetails = ({route}) => {
               style={stylesSheet.secondaryBtn}>
               <Text style={stylesSheet.secondaryBtnText}>Close</Text>
             </TouchableOpacity>
+
+            <Text style={{marginTop: 16}}>
+              <Text style={{fontWeight: 'bold', marginTop: '25px'}}>
+                From:{' '}
+              </Text>
+              Starting point of the time period you want to view. You can select
+              a specific month and year from which you want to begin viewing the
+              data.
+            </Text>
+
+            <Text>
+              <Text style={{fontWeight: 'bold', marginTop: 'auto'}}>To: </Text>{' '}
+              Ending point of the time period you want to view. You can select a specific month and year up to which you want to view the data.
+            </Text>
+            <Text>
+              <Text style={{fontWeight: 'bold'}}>Note: </Text>
+              Please note that the dates themselves are irrelevant for this selection. What matters is the range of months and years you choose with "From" and "To". The system will display data within the selected range, regardless of the specific day within those months.
+            </Text>
           </View>
         </ScrollView>
       </Modal>
-      {/* <View style={stylesSheet.filterContainer}>
-        <TouchableHighlight
-          onPress={() => setIsFilterShow(true)}
-          underlayColor="white">
-          <View style={stylesSheet.filterButton}>
-            <Text style={stylesSheet.buttonFilter}>Filter</Text>
-          </View>
-        </TouchableHighlight>
-      </View> */}
-
-      {/* <Text>View: {matrixData.meta.view} isLoading : {JSON.stringify(isLoading)}</Text> */}
 
       {error ? (
         <Text>Something Went Wrong!</Text>
@@ -475,37 +495,28 @@ const CustomReportDetails = ({route}) => {
 
 const stylesSheet = StyleSheet.create({
   filterContainer: {
-   
   },
   filterButton: {
-  width : 24,
-  height : 24,
-  resizemode : "contain"
-
   },
   buttonFilter: {
     color: 'white',
     fontWeight: 'bold',
     fontSize: 16,
   },
-
   yearContainer: {
     backgroundColor: '#dedede',
     padding: 8,
     marginTop: 5,
   },
-
   rangeContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-
   rangeColumn: {
     flex: 1,
     marginLeft: 8,
     marginRight: 8,
   },
-
   yearText: {
     fontWeight: '500',
   },
@@ -513,7 +524,6 @@ const stylesSheet = StyleSheet.create({
     margin: 8,
     marginTop: 16,
   },
-
   errorText: {
     color: 'red',
     textAlign: 'center',
@@ -524,7 +534,18 @@ const stylesSheet = StyleSheet.create({
     padding: 8,
     marginTop: 2,
   },
+  monthButton1: {
+    backgroundColor: '#f2f2f2',
+    padding: 8,
+    marginTop: 2,
+  },
   monthButtonText: {
+    color: 'grey',
+    textAlign: 'center',
+    textTransform: 'uppercase',
+    fontWeight: '600',
+  },
+  monthButtonText1: {
     color: 'grey',
     textAlign: 'center',
     textTransform: 'uppercase',
@@ -544,7 +565,7 @@ const stylesSheet = StyleSheet.create({
     textTransform: 'uppercase',
   },
   secondaryBtn: {
-    backgroundColor: '#b8b7b6',
+    backgroundColor: '#888888',
     padding: 8,
     marginTop: 2,
     borderRadius: 6,
@@ -556,10 +577,12 @@ const stylesSheet = StyleSheet.create({
     textTransform: 'uppercase',
   },
   selectedMonth: {
-    backgroundColor: 'darkgrey', 
+    backgroundColor: '#65A765',
+    color : 'white'
   },
-  selectedMonthText: {
-    color: 'white', 
+  selectedMonth1: {
+    backgroundColor: '#65A765',
+    color :'white'
   },
 });
 

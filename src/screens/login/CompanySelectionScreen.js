@@ -1,19 +1,16 @@
 import React, { useState, useEffect, useLayoutEffect, useContext} from 'react';
 import {View,LogBox, ActivityIndicator,FlatList,StatusBar,Text,Platform} from 'react-native';
-
 import { useIsFocused } from '@react-navigation/native';
-import themeStyles from '../../styles/theme.styles';
-import styles from '../../styles/ReportStyles';
 import axios from 'axios';
-import constants from '../../styles/constants';
+
 import RenderCompanyCard from '../../components/ReportComponents/RenderCompanyCard';
-import { userDataContext } from '../Dashboard';
-
-import SearchCompany from '../../components/SearchComponents/SearchCompany';
-import SearchEmptyResult from '../../components/SearchComponents/SearchEmptyResult';
-
 import RenderEmptyData from '../../components/RenderEmptyData';
 import { Logout } from '../../components/Logout';
+
+import styles from '../../styles/ReportStyles';
+import constants from '../../styles/constants';
+import themeStyles from '../../styles/theme.styles';
+
 const CompanySelectionScreen = ({ route }) => {
   const [isLoading, setIsLoading] = useState(false);
   const { userData } = route.params;
@@ -78,12 +75,6 @@ const CompanySelectionScreen = ({ route }) => {
       <View style={[styles.reportScreenContainer,{marginTop:Platform.OS == 'ios' ? 60 : 20}]}>
         <StatusBar barStyle="dark-content" backgroundColor={themeStyles.WHITE_COLOR} />
         <Text style={{color:themeStyles.PRIMARY_TEXT_COLOR, fontWeight: themeStyles.FONT_WEIGHT_MEDIUM, fontSize : 20, paddingVertical:20}}>Your Companies</Text>
-        {/* <SearchCompany title="Companies" searchedKey={searchedKey} setSearchedKey={setSearchedKey} />
-            {
-              searchResultsEmpty &&
-              <SearchEmptyResult title={searchedKey} />
-            }
-        */}
         <FlatList
           keyboardShouldPersistTaps='always'
           style={{}}
