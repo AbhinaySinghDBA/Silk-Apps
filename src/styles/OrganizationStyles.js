@@ -7,7 +7,7 @@ export default StyleSheet.create({
     loaderContainer:{ justifyContent: "center", alignItems: 'center', flex: 1},
     loader:{ width: 60, height: 60 },
 
-    orgScreenContainer:{ paddingHorizontal: 20 },
+    orgScreenContainer:{marginTop:35, paddingHorizontal: 20 },
     companyProfileHeaderContainer:{flexDirection:'row',marginTop:20,marginHorizontal:20},
     companyLogoContainer:{alignItems: 'center', justifyContent: 'center',height:62, width:62, borderColor:themeStyles.CARD_BORDER_COLOR,borderWidth:1,borderRadius:14,marginRight: 15,backgroundColor:'#f5f5f5'},
     companyLogo:{width: 60, height: 60,borderRadius:10},

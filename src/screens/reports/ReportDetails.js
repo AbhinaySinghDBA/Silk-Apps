@@ -20,7 +20,7 @@ import styles from '../../styles/ReportDetailStyles';
 import constants from '../../styles/constants';
 
 
-const ReportDetails = ({ navigation, route }) => {
+const ReportDetails = ({ route }) => {
   const { user_id, type_id, name, type, company_id, periodicity_id, current_year } = route.params;
 
   const [isLoading, setIsLoading] = useState(false);
@@ -405,15 +405,17 @@ const ReportDetails = ({ navigation, route }) => {
       </View>
       :
       <View ScrollView nestedScrollEnabled={false} showsVerticalScrollIndicator={false} style={styles.screenContainer} >
-        {yearValue > (firstDataYear) && <TouchableOpacity activeOpacity={1} style={styles.leftNavigationContainer}
+        {yearValue > (firstDataYear) 
+          && <TouchableOpacity activeOpacity={1} style={styles.leftNavigationContainer}
           onPress={() => yearFilter('left')}
         >
-          <ArrowCircleLeft color={themeStyles.PRIMARY_COLOR} variant={"Bold"} size={28} />
-        </TouchableOpacity>}
+          <Image source={require('../../assets/Img/arrow-circle-left.png')}color={themeStyles.PRIMARY_COLOR} variant={"Bold"} size={28} />
+        </TouchableOpacity>
+      }
         {yearValue != constants.currentYear && <TouchableOpacity activeOpacity={1} style={styles.rightNavigationContainer}
           onPress={() => yearFilter('right')}
         >
-          <ArrowCircleRight color={themeStyles.PRIMARY_COLOR} variant={"Bold"} size={28} />
+        <Image source={require('../../assets/Img/arrow-circle-right.png')} color={themeStyles.PRIMARY_COLOR} variant={"Bold"} size={28} />
         </TouchableOpacity>}
         <View style={styles.titleSectionContainer}>
           <View style={styles.metricHeaderSectionContainer}>
@@ -504,13 +506,6 @@ const ReportDetails = ({ navigation, route }) => {
                   </TouchableOpacity>
                 </Swipeable>
               }
-              <Swipeable>
-                <TouchableOpacity activeOpacity={1} style={[styles.addMetricsToCompareButton, { marginLeft: 5 }]}
-                  onPress={() => navigation.navigate("Add")}
-                >
-                  <Text style={[styles.addMetricsToCompareText]}>Add Data</Text>
-                </TouchableOpacity>
-              </Swipeable>
 
             </View>
 

@@ -1,19 +1,20 @@
 import { Text, View, TouchableOpacity, Image,StatusBar } from 'react-native';
 import React, { useState, useLayoutEffect,useContext } from 'react';
 import { useNavigation,useIsFocused } from '@react-navigation/native';
+import LottieView from 'lottie-react-native';
+import axios from 'axios';
 
-import { AuthContext } from '../../routes/Router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import themeStyles from '../../styles/theme.styles';
 import {Call, Sms, Logout} from 'iconsax-react-native';
 
 import styles from '../../styles/UserProfileStyles';
 import { userDataContext } from '../Dashboard';
-import constants from '../../styles/constants';
-import axios from 'axios';
-import LottieView from 'lottie-react-native';
 import { version } from '../../../package.json'
+import { AuthContext } from '../../routes/Router';
+import themeStyles from '../../styles/theme.styles';
+import constants from '../../styles/constants';
+
 const FocusAwareStatusBar = (props) => {
     const isFocused = useIsFocused();
     return isFocused ? <StatusBar {...props} /> : null;
@@ -53,7 +54,7 @@ const Profile = ({ route }) => {
         AsyncStorage.removeItem("userVerifiedDetails");
         signOut()
     }
-    // let userProfileImage = constants.BucketName + userProfileData.user_profile_image.path;
+//     // let userProfileImage = constants.BucketName + userProfileData.user_profile_image.path;
     return (
         !isLoading ?
             <View style={styles.screenLoaderContainer}>
@@ -62,28 +63,26 @@ const Profile = ({ route }) => {
             :
         <SafeAreaView style={styles.container}>
             <FocusAwareStatusBar barStyle="light-content" backgroundColor={themeStyles.PRIMARY_COLOR} />
-            <View style={styles.profileHeaderContainer}>
+                        <View style={styles.profileHeaderContainer}>
                 <Text style={styles.proileHeaderText}>My profile</Text>
             </View>
             <View style={[styles.investorDataContainer,styles.shadowProp]}>
-                <Image source={{uri: userProfilePic }} style={styles.investorLogo} resizeMode='cover' />
-                <View style={styles.investorDetailsContainer}>
-                    <Text style={styles.investorTitle}>{userProfileData.first_name}</Text>
-                    <Text style={styles.investorDesc}>{userData.company_type_id == 1 ? "investor" :"company" }</Text>
-                </View>
-            </View>
+            <Image source={{uri: userProfilePic }} style={styles.investorLogo} resizeMode='cover' />
+            <View style={styles.investorDetailsContainer}>
+            <Text style={styles.investorTitle}>{userProfileData.first_name}</Text>
+            <Text style={styles.investorDesc}>{userData.company_type_id == 1 ? "investor" :"company" }</Text></View></View>
             <View style={styles.cardsOverAllContainer}>
                 <View style={styles.cardsContainer}>
-                    <Call color={themeStyles.LINK_TEXT_COLOR} variant="Outline" size={24} />
-                    <Text style={styles.cardText}>+91 {userData.contact_number}</Text>
+                <Call color={themeStyles.LINK_TEXT_COLOR} variant="Outline" size={24} />
+                <Text style={styles.cardText}>+91 {userData.contact_number}</Text>
                 </View>
                 <View style={styles.cardsContainer}>
-                    <Sms color={themeStyles.LINK_TEXT_COLOR} variant="Outline" size={24} />
-                    <Text style={styles.cardText}>{userProfileData.email}</Text>
+                <Sms color={themeStyles.LINK_TEXT_COLOR} variant="Outline" size={24} />
+                <Text style={styles.cardText}>{userProfileData.email}</Text>
                 </View>
                 <TouchableOpacity activeOpacity={1} onPress={() => removeUserData()} style={[styles.cardsContainer,{borderBottomWidth:0}]}>
-                    <Logout color={themeStyles.LINK_TEXT_COLOR} variant="Outline" size={24} style={{transform: [{scaleX: -1}]}}/>
-                    <Text style={[styles.cardText]}>Logout</Text>
+                <Image source={require('../../assets/Img/logout.png')} variant="Outline" size={24}/>
+                <Text style={[styles.cardText]}>Logout</Text>
                 </TouchableOpacity>
             </View>
             {version.includes('S') && <Text style={{position:'absolute',bottom:10,alignSelf:'center'}}>Version : {version}</Text>}

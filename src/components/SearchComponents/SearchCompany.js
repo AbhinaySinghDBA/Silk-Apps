@@ -2,6 +2,7 @@ import React,{useState, useEffect} from 'react';
 import { View,  TouchableOpacity,Text ,TextInput, Image} from 'react-native';
 import themeStyles from '../../styles/theme.styles';
 import styles from '../../styles/commonStyles'
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const SearchCompany = (props) => {
     const { title = '', searchedKey, setSearchedKey = null, placeholderText = '', screen = "", yearValue = "23", setYearValue = null } = props;

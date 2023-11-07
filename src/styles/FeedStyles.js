@@ -33,7 +33,7 @@ export default StyleSheet.create({
     screenLoaderContainer :{ justifyContent: "center", alignItems: 'center', flex: 1 },
     screenLoader:{ width: 60, height: 60 },
 
-    screenContainer:{paddingHorizontal:0},
+    screenContainer:{marginTop:35, paddingHorizontal:0},
 
     // Feed Screen
 })

@@ -24,6 +24,7 @@ import ViewPdf from '../components/FIleComponents/ViewPdf';
 import theme from '../styles/theme.styles';
 import themeStyles from '../styles/theme.styles';
 import CustomReportDetails from '../screens/customReports/CustomReportDetails';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -32,6 +33,7 @@ const options = { headerShown: false }
 const HomeTabs = () => {
   const bottomTabIconSize = Platform.OS == 'ios' ? 20 : 24;
   return (
+    
     <Tab.Navigator
       initialRouteName="Feed"
       screenOptions={({ route }) => ({
@@ -75,8 +77,8 @@ const HomeTabs = () => {
           // marginBottom:11
           ...Platform.select({
             ios: {
-              minHeight: 60,
-              height: 60,
+              minHeight: 80,
+              height: 80,
               //marginVertical: 10,
               // backgroundColor: 'red',
             },
@@ -91,7 +93,6 @@ const HomeTabs = () => {
           ...Platform.select({
             ios: {
               // backgroundColor: 'red',
-              // marginBottom: 5
               marginTop: 5,
               marginBottom: 5,
               lineHeight: 12
@@ -298,11 +299,13 @@ function ScreenNavigator() {
             </TouchableOpacity>,
           // headerRight: () => <View/>,
           headerTitle: props => (
+            
             <View style={{ flex: 1, flexDirection: "row" }}>
-              <Text style={{ fontSize: 20, fontWeight: "600", color: theme.PRIMARY_TEXT_COLOR, maxWidth: '75%' }} numberOfLines={1} ellipsizeMode='tail'>
+              <Text style={{ fontSize: 20, fontWeight: "600", color: theme.PRIMARY_TEXT_COLOR, maxWidth: '%' }} numberOfLines={1} ellipsizeMode='tail'>
                 {props.children}
               </Text>
             </View>
+            
           ),
         })}
       />
@@ -327,6 +330,7 @@ function ScreenNavigator() {
       <Stack.Screen name="CompanyProfile" component={CompanyProfile}
         options={({ route }) => ({
           title: 'View Profile',
+
           headerLeft: () => Platform.OS == 'ios' &&
             <TouchableOpacity onPress={() => navigation.goBack(null)} style={{}}>
               <Image source={require('../assets/Img/arrow-left.png')} color={'#000'} variant="Outline" size={22} style={{ marginRight: 10, marginTop: 2 }} />

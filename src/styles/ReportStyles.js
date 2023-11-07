@@ -47,7 +47,7 @@ export default StyleSheet.create({
   // Reports Screen
   loaderContainer: { justifyContent: "center", alignItems: 'center', flex: 1 },
   loader: { width: 60, height: 60 },
-  reportScreenContainer: { paddingHorizontal: 20 },
+  reportScreenContainer: {marginTop:35, paddingHorizontal: 20 },
 
   // Report List
   reportListContainer: { flex: 1, paddingHorizontal: 20, justifyContent: 'flex-start' },

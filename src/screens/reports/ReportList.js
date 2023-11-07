@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useLayoutEffect, useContext} from 'react';
-import {View, LogBox, FlatList} from 'react-native';
+import {View, LogBox, FlatList, TouchableOpacity} from 'react-native';
 
 import { useIsFocused } from '@react-navigation/native';
+import {Add} from 'iconsax-react-native';
 import RenderMetricsCard from '../../components/ReportComponents/ReportMetricsCard';
 import { userDataContext } from '../Dashboard';
 
@@ -13,8 +14,11 @@ import RenderEmptyData from '../../components/RenderEmptyData';
 import axios from 'axios';
 import LottieView from 'lottie-react-native';
 import { Logout } from '../../components/Logout';
+import { useNavigation } from '@react-navigation/core';
+
 
 const ReportList = ({ route }) => {
+  const navigation =useNavigation();
   const [isLoading, setIsLoading] = useState(false);
   const { userData } = useContext(userDataContext);
   const isFocused = useIsFocused();
@@ -124,6 +128,23 @@ const ReportList = ({ route }) => {
   //     setOnEndReachedCalledDuringMomentum(true)
   //   )
   // }
+
+  useEffect(() =>
+  navigation.setOptions({
+    headerRight: () =>{
+      return(
+        <TouchableOpacity>
+          <Add name = 'Add' size ={34} color ='#3a7953'></Add>
+
+        </TouchableOpacity>
+      )
+    }
+  }))
+
+
+
+
+
 
   return (
     !isLoading ?

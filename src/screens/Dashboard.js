@@ -41,11 +41,15 @@ const Dashboard = ({ navigation, route }) => {
       {
         Platform.OS == 'android' &&
         <SafeAreaView style={{ flex: 1 }}>
+          
           <ScreenNavigator />
         </SafeAreaView>
       }
       {
-        Platform.OS == 'ios' && <ScreenNavigator />
+        Platform.OS == 'ios' && 
+        
+        <ScreenNavigator />
+        
       }
     </userDataContext.Provider>
   );
